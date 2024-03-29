@@ -1,0 +1,146 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger go-web-skeleton
+  description: TODO
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Swagger API Team
+    email: apiteam@swagger.io
+    url: http://swagger.io
+servers:
+  - url: https://{hostname}/api/v1
+    variables:
+      hostname:
+        default: localhosts
+paths:
+  /posts/{id}:
+    delete:
+      summary: Deletes a test post by ID
+      description: deletes a single post based on the ID supplied
+      operationId: deletePost
+      parameters:
+        - name: id
+          in: path
+          description: ID of post to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: post deleted
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /posts:
+    post:
+      summary: 
+      description: |
+        example
+        example
+        example
+      operationId: createPost
+      requestBody:
+        description: Post to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+      responses:
+        '200':
+          description: posts response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: 
+      description: |
+        example
+        example
+        example
+      operationId: findPosts
+      responses:
+        '200':
+          description: posts response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: #/components/schemas/Error
+  /ping:
+    get:
+      summary: Ping
+      description: |
+        TODO
+      operationId: ping
+      tags:
+        - ping
+      responses:
+        "200":
+          description: todo
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: #/components/schemas/Error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    CreatePostRequest:
+      required:
+        - title
+        - body
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+    Post:
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
